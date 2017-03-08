@@ -21,4 +21,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.productList();
 	}
 
+	@Override
+	public List<String> brandList() {
+		return productDAO.brandList();
+	}
+
 }

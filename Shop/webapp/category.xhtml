@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form>
+		<p:dataGrid var="category" value="#{categoryController.categoryList}"
+			columns="6" layout="grid">
+			<p:panel header="#{category.name}" style="text-align: center">
+				<a href="#{category.linkName}"> <p:graphicImage
+						value="resources/images/#{category.linkName}.png" width="75"></p:graphicImage>
+				</a>
+			</p:panel>
+		</p:dataGrid>
+	</h:form>
+</h:body>
+</html>

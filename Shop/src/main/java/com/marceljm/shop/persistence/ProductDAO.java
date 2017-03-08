@@ -8,4 +8,6 @@ public interface ProductDAO {
 
 	List<Product> productList();
 
+	List<String> brandList();
+
 }

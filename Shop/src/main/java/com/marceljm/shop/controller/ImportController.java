@@ -19,10 +19,12 @@ public class ImportController {
 	private ProductServiceImpl productService;
 
 	private List<Product> productList;
+	private List<String> brandList;
 
 	@PostConstruct
 	public void init() {
 		setProductList(productService.productList());
+		setBrandList(productService.brandList());
 	}
 
 	public List<Product> getProductList() {
@@ -31,6 +33,14 @@ public class ImportController {
 
 	public void setProductList(List<Product> productList) {
 		this.productList = productList;
+	}
+
+	public List<String> getBrandList() {
+		return brandList;
+	}
+
+	public void setBrandList(List<String> brandList) {
+		this.brandList = brandList;
 	}
 
 }

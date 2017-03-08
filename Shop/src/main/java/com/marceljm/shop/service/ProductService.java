@@ -8,4 +8,6 @@ public interface ProductService {
 
 	List<Product> productList();
 
+	List<String> brandList();
+
 }

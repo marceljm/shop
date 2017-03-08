@@ -1,5 +1,8 @@
 package com.marceljm.shop.entity;
 
+import java.text.DecimalFormat;
+import java.text.Normalizer;
+
 public class Product {
 
 	private String programId;
@@ -51,6 +54,10 @@ public class Product {
 		return price;
 	}
 
+	public String getFormattedPrice() {
+		return new DecimalFormat("R$ #,##0.00").format(price);
+	}
+
 	public void setPrice(float price) {
 		this.price = price;
 	}
@@ -86,6 +93,31 @@ public class Product {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((zupid == null) ? 0 : zupid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (zupid == null) {
+			if (other.zupid != null)
+				return false;
+		} else if (!zupid.equals(other.zupid))
+			return false;
+		return true;
 	}
 
 }
