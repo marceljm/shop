@@ -7,11 +7,16 @@
 
 <h:body>
 	<h:form>
-		<p:dataGrid var="category" value="#{categoryController.categoryList}"
-			columns="6" layout="grid">
-			<p:panel header="#{category.name}" style="text-align: center">
+		<p:dataGrid var="category"
+			value="#{categoryController.categoryList(main)}" columns="6"
+			layout="grid">
+			<p:panel style="text-align: center">
+				<f:facet name="header">
+					<p:link href="#{main}/#{category.linkName}" value="#{category.name}"></p:link>
+				</f:facet>
 				<a href="#{category.linkName}"> <p:graphicImage
-						value="resources/images/#{category.linkName}.png" width="75"></p:graphicImage>
+						value="resources/images/#{category.linkName}.png" width="75"
+						rendered="#{categoryController.isFirstLevel(main)}"></p:graphicImage>
 				</a>
 			</p:panel>
 		</p:dataGrid>

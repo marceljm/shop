@@ -20,6 +20,7 @@
 
 .ui-widget, .ui-widget .ui-widget, .ui-wizard-step-title {
 	font-size: 12px;
+	text-decoration: none !important;
 }
 
 .top td {

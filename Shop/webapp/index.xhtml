@@ -5,17 +5,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<title>Shop</title>
+<f:metadata>
+	<f:viewParam name="#{main}"></f:viewParam>
+</f:metadata>
 
+<h:head>
+	<title>#{main}</title>
 	<link rel="stylesheet" href="resources/css/style.css" type="text/css"
-		charset="utf-8"/>
+		charset="utf-8" />
 </h:head>
 
 <h:body style="margin:0; padding:0;">
-
 	<ui:include src="category.xhtml" />
 	<ui:include src="content.xhtml" />
-
 </h:body>
 </html>
