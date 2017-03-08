@@ -4,7 +4,17 @@
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
 	<url-mapping id="firstLevel">
-		<pattern value="/#{main}" />
+		<pattern value="/#{main}/" />
+		<view-id value="/index.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="secondLevel">
+		<pattern value="/#{main}/#{sub}/" />
+		<view-id value="/index.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="thirdLevel">
+		<pattern value="/#{main}/#{sub}/#{third}/" />
 		<view-id value="/index.xhtml" />
 	</url-mapping>
 

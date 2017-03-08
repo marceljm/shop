@@ -25,16 +25,29 @@ public class CategoryController {
 		categoryList = categoryService.getCategoryList();
 	}
 
-	public List<Category> categoryList(String main) {
+	public List<Category> categoryList(String main, String sub, String third) {
 		if (main.isEmpty())
 			return categoryList;
 
 		Category mainCategory = new Category(main, null);
-		int index = categoryList.indexOf(mainCategory);
-		return categoryList.get(index).getList();
+		int index1 = categoryList.indexOf(mainCategory);
+
+		if (sub.isEmpty())
+			return categoryList.get(index1).getList();
+
+		Category subCategory = new Category(sub, null);
+		int index2 = categoryList.get(index1).getList().indexOf(subCategory);
+
+		if (third.isEmpty())
+			return categoryList.get(index1).getList().get(index2).getList();
+
+		Category thirdCategory = new Category(third, null);
+		int index3 = categoryList.get(index1).getList().get(index2).getList().indexOf(thirdCategory);
+		return categoryList.get(index1).getList().get(index2).getList().get(index3).getList();
 	}
 
 	public boolean isFirstLevel(String main) {
 		return main.isEmpty();
 	}
+
 }
