@@ -20,12 +20,16 @@ public class CategoryController {
 
 	private List<Category> categoryList;
 
+	boolean lastLevel;
+
 	@PostConstruct
 	public void init() {
 		categoryList = categoryService.getCategoryList();
 	}
 
 	public List<Category> categoryList(String main, String sub, String third) {
+		lastLevel = false;
+
 		if (main.isEmpty())
 			return categoryList;
 
@@ -38,8 +42,11 @@ public class CategoryController {
 		Category subCategory = new Category(sub, null);
 		int index2 = categoryList.get(index1).getList().indexOf(subCategory);
 
-		if (third.isEmpty())
+		if (third.isEmpty()) {
+			lastLevel = categoryList.get(index1).getList().get(index2).getList().size() == 0;
 			return categoryList.get(index1).getList().get(index2).getList();
+		}
+		lastLevel = true;
 
 		Category thirdCategory = new Category(third, null);
 		int index3 = categoryList.get(index1).getList().get(index2).getList().indexOf(thirdCategory);
@@ -50,4 +57,30 @@ public class CategoryController {
 		return main.isEmpty();
 	}
 
+	public String link(String main, String sub, String link, String category) {
+		if (isLastLevel(main, sub, category))
+			return link.concat("/produtos");
+		return link;
+	}
+
+	private boolean isLastLevel(String main, String sub, String category) {
+		if (main.isEmpty())
+			return false;
+
+		Category mainCategory = new Category(main, null);
+		int index1 = categoryList.indexOf(mainCategory);
+
+		if (sub.isEmpty()) {
+			Category subCategory = new Category(category, null);
+			int index2 = categoryList.get(index1).getList().indexOf(subCategory);
+			return categoryList.get(index1).getList().get(index2).getList().size() == 0;
+		}
+
+		Category subCategory = new Category(sub, null);
+		int index2 = categoryList.get(index1).getList().indexOf(subCategory);
+
+		Category thirdCategory = new Category(category, null);
+		int index3 = categoryList.get(index1).getList().get(index2).getList().indexOf(thirdCategory);
+		return categoryList.get(index1).getList().get(index2).getList().get(index3).getList().size() == 0;
+	}
 }

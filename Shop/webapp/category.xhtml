@@ -12,8 +12,9 @@
 			columns="6" layout="grid">
 			<p:panel style="text-align: center">
 				<f:facet name="header">
-					<p:link href="#{category.linkName}/" value="#{category.name}"
-						style="text-decoration: none !important"></p:link>
+					<p:link
+						href="#{categoryController.link(main, sub, category.linkName, category.name)}/"
+						value="#{category.name}" style="text-decoration: none !important"></p:link>
 				</f:facet>
 				<a href="#{category.linkName}/"> <p:graphicImage
 						value="resources/images/#{category.linkName}.png" width="75"
