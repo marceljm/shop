@@ -5,10 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,31 +19,27 @@ public class ProductDAOImpl implements ProductDAO {
 
 	private String FILE = "C:\\CSV\\shop.csv";
 
-	private Set<String> brandSet = new HashSet<String>();
-
 	@Override
-	public List<Product> productList() {
+	public Map<String, List<Product>> categoryProductMap() {
 		try {
 			BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(FILE), "UTF8"));
 			String line;
-			List<Product> productList = new ArrayList<Product>();
+			Map<String, List<Product>> categoryProductMap = new HashMap<String, List<Product>>();
 			while ((line = bf.readLine()) != null) {
-				productList.add(new Product(line));
-				brandSet.add(line.split(";")[4]);
+				String[] field = line.split(";");
+				if (categoryProductMap.get(field[7]) == null) {
+					List<Product> productList = new ArrayList<Product>();
+					productList.add(new Product(line));
+					continue;
+				}
+				categoryProductMap.get(field[7]).add(new Product(line));
 			}
 			bf.close();
-			return productList;
+			return categoryProductMap;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	@Override
-	public List<String> brandList() {
-		List<String> brandList = new ArrayList<String>(brandSet);
-		Collections.sort(brandList);
-		return brandList;
 	}
 
 }

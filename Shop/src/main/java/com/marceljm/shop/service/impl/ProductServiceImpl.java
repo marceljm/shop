@@ -1,6 +1,7 @@
 package com.marceljm.shop.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,13 +18,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDAOImpl productDAO;
 
 	@Override
-	public List<Product> productList() {
-		return productDAO.productList();
-	}
-
-	@Override
-	public List<String> brandList() {
-		return productDAO.brandList();
+	public Map<String, List<Product>> getCategoryProductMap() {
+		return productDAO.categoryProductMap();
 	}
 
 }

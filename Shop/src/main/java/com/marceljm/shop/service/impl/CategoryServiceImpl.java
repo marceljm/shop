@@ -1,6 +1,7 @@
 package com.marceljm.shop.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -20,4 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> getCategoryList() {
 		return categoryDAO.getCategoryList();
 	}
+
+	@Override
+	public Map<String, String> getLinkCategoryMap() {
+		return categoryDAO.getLinkCategoryMap();
+	}
+
 }

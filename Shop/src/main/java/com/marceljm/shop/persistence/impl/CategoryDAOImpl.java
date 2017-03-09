@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.marceljm.shop.entity.Category;
 import com.marceljm.shop.persistence.CategoryDAO;
+import com.marceljm.shop.util.Util;
 
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
@@ -21,8 +24,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	private List<Category> categoryList;
 
+	private Map<String, String> linkCategoryMap;
+
 	@PostConstruct
 	private void init() {
+		linkCategoryMap = new HashMap<String, String>();
 		categoryList = categoryList();
 	}
 
@@ -32,6 +38,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			String line;
 			BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(FILE), "UTF8"));
 			while ((line = bf.readLine()) != null) {
+				addToLinkCategoryMap(line);
 				String field[] = line.split(";")[0].split(" / ");
 				if (field.length > 0) {
 					Category category1 = new Category(field[0], new ArrayList<Category>());
@@ -60,9 +67,32 @@ public class CategoryDAOImpl implements CategoryDAO {
 		return null;
 	}
 
+	private void addToLinkCategoryMap(String category) {
+		String[] field = category.split(";");
+		String name = field[0];
+		String id = field[1];
+
+		field = name.split(" / ");
+
+		if (field.length < 2)
+			return;
+
+		String link = Util.linkfy(field[0]).concat("/").concat(Util.linkfy(field[1])).concat("/");
+
+		if (field.length == 3)
+			link = link.concat(field[2]).concat("/");
+
+		linkCategoryMap.put(link, id);
+	}
+
 	@Override
 	public List<Category> getCategoryList() {
 		return categoryList;
+	}
+
+	@Override
+	public Map<String, String> getLinkCategoryMap() {
+		return linkCategoryMap;
 	}
 
 }
